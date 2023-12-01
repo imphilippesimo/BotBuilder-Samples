@@ -9,6 +9,8 @@ import com.microsoft.bot.integration.BotFrameworkHttpAdapter;
 import com.microsoft.bot.integration.Configuration;
 import com.microsoft.bot.integration.spring.BotController;
 import com.microsoft.bot.integration.spring.BotDependencyConfiguration;
+import com.microsoft.bot.sample.echo.services.ApiService;
+import com.microsoft.bot.sample.echo.services.LogmBot;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -41,16 +43,17 @@ public class Application extends BotDependencyConfiguration {
      * Returns the Bot for this application.
      *
      * <p>
-     *     The @Component annotation could be used on the Bot class instead of this method
-     *     with the @Bean annotation.
+     * The @Component annotation could be used on the Bot class instead of this method
+     * with the @Bean annotation.
      * </p>
      *
      * @return The Bot implementation for this application.
      */
     @Bean
-    public Bot getBot() {
-        return new EchoBot();
+    public Bot getBot(ApiService apiService) {
+        return new LogmBot(apiService);
     }
+
 
     /**
      * Returns a custom Adapter that provides error handling.
